@@ -36,11 +36,11 @@ const getAllUsers = async (req: Request, res: Response) => {
 const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-
     const result = await UserServices.getSingleUserFromDB(userId);
+    console.log(result);
     res.status(200).json({
       success: true,
-      message: 'Student is retrieve successfully',
+      message: 'User fetched successfully!',
       data: result,
     });
   } catch (err) {
