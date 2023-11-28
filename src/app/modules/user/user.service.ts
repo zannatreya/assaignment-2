@@ -2,16 +2,21 @@ import { User } from './user.interface';
 import { UserModel } from './user.model';
 
 const createUserIntoDB = async (userData: User) => {
-  // if (await UserModel.isUserExists(userData.id)) {
-  //   throw new Error('user already exist');
-  // }
   const result = await UserModel.create(userData);
-  // const user = new User(userData); //create an instance
+  return result;
+};
 
-  // const result = await user.save();
+const getAllUserFromDB = async () => {
+  const result = await UserModel.find();
+  return result;
+};
+const getSingleUserFromDB = async (id: string) => {
+  const result = await UserModel.findOne({ id });
   return result;
 };
 
 export const UserServices = {
   createUserIntoDB,
+  getAllUserFromDB,
+  getSingleUserFromDB,
 };

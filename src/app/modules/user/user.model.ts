@@ -20,11 +20,11 @@ const UserSchema = new Schema<User>({
     type: String,
     required: [true, 'Username  is required'],
   },
-  password: {
-    type: String,
-    required: [true, 'password is required'],
-    maxlength: [20, 'can not be more than 20 character'],
-  },
+  //   password: {
+  //     type: String,
+  //     required: [true, 'password is required'],
+  //     maxlength: [20, 'can not be more than 20 character'],
+  //   },
   fullName: {
     firstName: {
       type: String,
