@@ -51,6 +51,10 @@ const UserSchema = new Schema<TUser>({
       required: [true, 'Countryname  is required'],
     },
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
   orders: [OrderSchema],
 });
 

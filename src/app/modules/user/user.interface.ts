@@ -15,6 +15,7 @@ export type TUser = {
     city: string;
     country: string;
   };
+  isDeleted: boolean;
   orders: Order[];
 };
 

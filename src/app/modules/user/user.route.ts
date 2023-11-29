@@ -4,5 +4,6 @@ const router = express.Router();
 router.post('/create-user', userController.createUser);
 router.get('/', userController.getAllUsers);
 router.get('/:userId', userController.getSingleUser);
+router.delete('/:studentId', userController.deleteUser);
 
 export const UserRoutes = router;
