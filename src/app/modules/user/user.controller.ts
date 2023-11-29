@@ -37,7 +37,7 @@ const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const result = await UserServices.getSingleUserFromDB(userId);
-    console.log(result);
+    // console.log(result);
     res.status(200).json({
       success: true,
       message: 'User fetched successfully!',

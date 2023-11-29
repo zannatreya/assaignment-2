@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Order, User } from './user.interface';
+import { Order, TUser } from './user.interface';
 
 const OrderSchema = new Schema<Order>({
   productName: {
@@ -10,7 +10,7 @@ const OrderSchema = new Schema<Order>({
   quantity: Number,
 });
 
-const UserSchema = new Schema<User>({
+const UserSchema = new Schema<TUser>({
   userId: {
     type: Number,
     required: [true, 'User id is required'],
@@ -54,4 +54,4 @@ const UserSchema = new Schema<User>({
   orders: [OrderSchema],
 });
 
-export const UserModel = model<User>('User', UserSchema);
+export const User = model<TUser>('User', UserSchema);
