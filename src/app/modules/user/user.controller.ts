@@ -1,10 +1,13 @@
 import { UserServices } from './user.service';
 import { Request, Response } from 'express';
+import UserValidationSchema from './user.validation';
 
 const createUser = async (req: Request, res: Response) => {
   try {
     const { user: userData } = req.body;
-    const result = await UserServices.createUserIntoDB(userData);
+
+    const zodParsedData = UserValidationSchema.parse(userData);
+    const result = await UserServices.createUserIntoDB(zodParsedData);
 
     res.status(200).json({
       success: true,
@@ -14,7 +17,7 @@ const createUser = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: err.message || 'Something went wrong',
+      message: 'User not found',
       error: err,
     });
   }
@@ -65,7 +68,7 @@ const deleteUser = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: 'Something went wrong',
+      message: 'User not found',
       error: err,
     });
   }
