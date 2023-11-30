@@ -8,6 +8,7 @@ const createUser = async (req: Request, res: Response) => {
 
     const zodParsedData = UserValidationSchema.parse(userData);
     const result = await UserServices.createUserIntoDB(zodParsedData);
+    // const result = await UserServices.createUserIntoDB(userData);
 
     res.status(200).json({
       success: true,
@@ -17,7 +18,7 @@ const createUser = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: 'User not found',
+      message: err.message || 'User not found',
       error: err,
     });
   }
@@ -55,6 +56,24 @@ const getSingleUser = async (req: Request, res: Response) => {
   }
 };
 
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { user: userData } = req.body;
+
+    const result = await UserServices.updateUserFromDB(userData);
+    res.status(200).json({
+      success: true,
+      message: 'User is updated successfully',
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'User not found',
+      error: err,
+    });
+  }
+};
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
@@ -78,5 +97,6 @@ export const userController = {
   createUser,
   getAllUsers,
   getSingleUser,
+  updateUser,
   deleteUser,
 };

@@ -1,3 +1,5 @@
+import { Model } from 'mongoose';
+
 export type TUser = {
   userId: number;
   username: string;
@@ -8,7 +10,7 @@ export type TUser = {
   };
   age: number;
   email: string;
-  isActive: 'active' | 'blocked';
+  isActive: boolean;
   hobbies: string[];
   address: {
     street: string;
@@ -24,3 +26,17 @@ export type Order = {
   price: number;
   quantity: number;
 };
+
+//for creating static
+
+export interface UserModel extends Model<TUser> {
+  isUserExists(id: number): Promise<TUser | null>;
+}
+
+// for creating instance
+
+// export interface UserMethods {
+//   isUserExists(id: number): Promise<TUser | null>;
+// }
+
+// export type UserModel = Model<TUser, Record<string, never>, UserMethods>;

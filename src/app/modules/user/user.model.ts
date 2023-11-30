@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Order, TUser } from './user.interface';
+import { Order, TUser, UserModel } from './user.interface';
 
 const OrderSchema = new Schema<Order>({
   productName: {
@@ -10,7 +10,7 @@ const OrderSchema = new Schema<Order>({
   quantity: Number,
 });
 
-const UserSchema = new Schema<TUser>({
+const UserSchema = new Schema<TUser, UserModel>({
   userId: {
     type: Number,
     required: [true, 'User id is required'],
@@ -41,11 +41,7 @@ const UserSchema = new Schema<TUser>({
     required: [true, 'Email is required'],
     unique: true,
   },
-  isActive: {
-    type: String,
-    enum: ['active', 'blocked'],
-    isDefault: 'active',
-  },
+  isActive: Boolean,
   hobbies: [String],
   address: {
     street: String,
@@ -62,4 +58,9 @@ const UserSchema = new Schema<TUser>({
   orders: [OrderSchema],
 });
 
-export const User = model<TUser>('User', UserSchema);
+UserSchema.statics.isUserExists = async function (id: number) {
+  const existingUser = await User.findOne({ id });
+  return existingUser;
+};
+
+export const User = model<TUser, UserModel>('User', UserSchema);
